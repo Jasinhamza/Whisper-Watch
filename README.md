@@ -89,3 +89,4 @@ I broke the system on purpose and diagnosed each failure from its symptoms.
 - GitOps with ArgoCD: merging to deploy, rollback is a merge revert
 - Better Security: Secrets manager, only API being able to reach Whisper, VPN
 - Error budget: if it's used up, slwo down changes fix reliability
+- Gatus - monitoring platform
