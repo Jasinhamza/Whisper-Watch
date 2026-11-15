@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 612" width="980" height="612" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#334155"/>
+    </marker>
+    <marker id="arr-metrics" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#E6522C"/>
+    </marker>
+    <marker id="arr-alert" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#DC2626"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="140%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#0F172A" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect x="0" y="0" width="980" height="612" fill="#FFFFFF"/>
+
+  <!-- title -->
+  <text x="30" y="38" font-size="20" font-weight="700" fill="#0F172A">AI Ops Lab: architecture</text>
+  <text x="30" y="60" font-size="13" fill="#64748B">Speech-to-text on Kubernetes with a synthetic check, metrics and alerting</text>
+
+  <!-- cluster boundary -->
+  <rect x="180" y="84" width="610" height="508" rx="14" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <text x="198" y="108" font-size="12" font-weight="700" fill="#475569" letter-spacing="0.4">K3D CLUSTER (K3S)</text>
+
+  <!-- namespace ai-lab -->
+  <rect x="350" y="120" width="420" height="212" rx="12" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.2"/>
+  <text x="366" y="142" font-size="12" font-weight="600" fill="#1D4ED8">namespace: ai-lab</text>
+
+  <!-- namespace monitoring -->
+  <rect x="350" y="352" width="420" height="224" rx="12" fill="#FFF7ED" stroke="#FED7AA" stroke-width="1.2"/>
+  <text x="366" y="374" font-size="12" font-weight="600" fill="#C2410C">namespace: monitoring</text>
+
+  <!-- connectors: requests -->
+  <g fill="none" stroke="#334155" stroke-width="1.6">
+    <path d="M150 192H196" marker-end="url(#arr)"/>
+    <path d="M330 192H366" marker-end="url(#arr)"/>
+    <path d="M540 192H576" marker-end="url(#arr)"/>
+    <path d="M455 248V228" marker-end="url(#arr)"/>
+    <path d="M455 480V460" marker-end="url(#arr)"/>
+  </g>
+  <!-- connectors: metrics (pull) -->
+  <g fill="none" stroke="#E6522C" stroke-width="1.6" stroke-dasharray="5 4">
+    <path d="M515 392V316" marker-end="url(#arr-metrics)"/>
+  </g>
+  <!-- connectors: alert path -->
+  <g fill="none" stroke="#DC2626" stroke-width="1.8">
+    <path d="M540 424H576" marker-end="url(#arr-alert)"/>
+    <path d="M750 424H816" marker-end="url(#arr-alert)"/>
+  </g>
+
+  <!-- edge labels -->
+  <text x="466" y="242" font-size="11.5" fill="#475569">test upload every 60 s</text>
+  <text x="526" y="346" font-size="11.5" fill="#C2410C">scrapes /metrics (API + prober)</text>
+  <text x="466" y="474" font-size="11.5" fill="#475569">queries</text>
+  <text x="783" y="414" font-size="11.5" fill="#DC2626" text-anchor="middle" stroke="#FFFFFF" stroke-width="4" paint-order="stroke">webhook</text>
+
+  <!-- boxes -->
+  <!-- User -->
+  <g filter="url(#shadow)">
+    <rect x="30" y="160" width="120" height="64" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  </g>
+  <rect x="30" y="170" width="4" height="44" rx="2" fill="#64748B"/>
+  <text x="46" y="188" font-size="14" font-weight="700" fill="#0F172A">User</text>
+  <text x="46" y="207" font-size="12" fill="#64748B">curl + audio file</text>
+
+  <!-- Traefik -->
+  <g filter="url(#shadow)">
+    <rect x="200" y="160" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  </g>
+  <rect x="200" y="170" width="4" height="44" rx="2" fill="#24A1C1"/>
+  <text x="216" y="188" font-size="14" font-weight="700" fill="#0F172A">Traefik</text>
+  <text x="216" y="207" font-size="12" fill="#64748B">Ingress, :8080</text>
+
+  <!-- API -->
+  <g filter="url(#shadow)">
+    <rect x="370" y="160" width="170" height="64" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  </g>
+  <rect x="370" y="170" width="4" height="44" rx="2" fill="#2563EB"/>
+  <text x="386" y="188" font-size="14" font-weight="700" fill="#0F172A">Transcribe API</text>
+  <text x="386" y="207" font-size="12" fill="#64748B">Flask, /healthz, /metrics</text>
+
+  <!-- Whisper -->
+  <g filter="url(#shadow)">
+    <rect x="580" y="160" width="170" height="64" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  </g>
+  <rect x="580" y="170" width="4" height="44" rx="2" fill="#7C3AED"/>
+  <text x="596" y="188" font-size="14" font-weight="700" fill="#0F172A">Whisper</text>
+  <text x="596" y="207" font-size="12" fill="#64748B">speech-to-text model</text>
+
+  <!-- Prober -->
+  <g filter="url(#shadow)">
+    <rect x="370" y="248" width="170" height="64" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  </g>
+  <rect x="370" y="258" width="4" height="44" rx="2" fill="#0D9488"/>
+  <text x="386" y="276" font-size="14" font-weight="700" fill="#0F172A">Prober</text>
+  <text x="386" y="295" font-size="12" fill="#64748B">synthetic user</text>
+
+  <!-- Prometheus -->
+  <g filter="url(#shadow)">
+    <rect x="370" y="392" width="170" height="64" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  </g>
+  <rect x="370" y="402" width="4" height="44" rx="2" fill="#E6522C"/>
+  <text x="386" y="420" font-size="14" font-weight="700" fill="#0F172A">Prometheus</text>
+  <text x="386" y="439" font-size="12" fill="#64748B">metrics + alert rules</text>
+
+  <!-- Alertmanager -->
+  <g filter="url(#shadow)">
+    <rect x="580" y="392" width="170" height="64" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  </g>
+  <rect x="580" y="402" width="4" height="44" rx="2" fill="#DC2626"/>
+  <text x="596" y="420" font-size="14" font-weight="700" fill="#0F172A">Alertmanager</text>
+  <text x="596" y="439" font-size="12" fill="#64748B">groups and routes</text>
+
+  <!-- Grafana -->
+  <g filter="url(#shadow)">
+    <rect x="370" y="480" width="170" height="64" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  </g>
+  <rect x="370" y="490" width="4" height="44" rx="2" fill="#F46800"/>
+  <text x="386" y="508" font-size="14" font-weight="700" fill="#0F172A">Grafana</text>
+  <text x="386" y="527" font-size="12" fill="#64748B">golden-signals dashboard</text>
+
+  <!-- Discord -->
+  <g filter="url(#shadow)">
+    <rect x="820" y="392" width="140" height="64" rx="10" fill="#FFFFFF" stroke="#5865F2" stroke-width="1.6"/>
+  </g>
+  <rect x="820" y="402" width="4" height="44" rx="2" fill="#5865F2"/>
+  <text x="836" y="420" font-size="14" font-weight="700" fill="#0F172A">Discord</text>
+  <text x="836" y="439" font-size="12" fill="#64748B">#alerts, on phone</text>
+
+  <!-- legend -->
+  <text x="30" y="492" font-size="12" font-weight="700" fill="#475569" letter-spacing="0.4">LEGEND</text>
+  <line x1="30" y1="514" x2="62" y2="514" stroke="#334155" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="72" y="518" font-size="12" fill="#475569">request</text>
+  <line x1="30" y1="538" x2="62" y2="538" stroke="#E6522C" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arr-metrics)"/>
+  <text x="72" y="542" font-size="12" fill="#475569">metrics (pull)</text>
+  <line x1="30" y1="562" x2="62" y2="562" stroke="#DC2626" stroke-width="1.8" marker-end="url(#arr-alert)"/>
+  <text x="72" y="566" font-size="12" fill="#475569">alert</text>
+</svg>
