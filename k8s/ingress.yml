@@ -1,24 +1,18 @@
-apiVersion: networking.k8s.io/v1   # which rule set this object follows; Ingress
-                                   # lives in the "networking" group, version 1
-kind: Ingress                      # the object type: a routing rulebook
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: api                        # the rulebook's own name (for kubectl, not routing)
-  namespace: ai-lab                # which section of the cluster it lives in
-spec:                              # the desired state: the rules themselves
-  ingressClassName: traefik        # WHICH doorman should follow this rulebook.
-                                   # A cluster can run several controllers;
-                                   # this says "Traefik, this one's yours"
-  rules:                           # the list of routing rules (here, just one)
-    - host: api.ailab.localhost    # rule matches only requests whose Host
-                                   # header says this name. Another host = no match
+  name: api
+  namespace: ai-lab
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: api.ailab.localhost
       http:
-        paths:                     # within that host, route by URL path
-          - path: /                # match paths starting with "/"...
-            pathType: Prefix       # ..."Prefix" = / and everything under it,
-                                   # so /transcribe and /healthz both match
-            backend:               # where matching traffic goes:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
               service:
-                name: api          # ...to the Service called "api"...
+                name: api
                 port:
-                  number: 80       # ...on the SERVICE's port (80), which the
-                                   # Service translates to targetPort 5000
+                  number: 80
