@@ -1,4 +1,4 @@
-# AI Ops Lab
+# Whisper Watch
 
 A small speech to text service running on Kubernetes, with monitoring, alerting and
 troubleshooting to ensure failures are caught as soon as possible.
