@@ -1,7 +1,7 @@
 # AI Ops Lab
 
 A small speech to text service running on Kubernetes, with monitoring, alerting and
-troubleshooting to ensure .
+troubleshooting to ensure failures are caught as soon as possible.
 
 You send an audio file to an API, it forwards the file to a Whisper
 speech-to-text model, and you get the transcript back as JSON.
